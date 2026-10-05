@@ -1,0 +1,14 @@
+# Relaxed analyzer rules for test projects.
+[*.cs]
+
+# Test classes must be public for xUnit.
+dotnet_diagnostic.CA1515.severity = none
+
+# Test names follow the Method_Scenario_ExpectedResult convention.
+dotnet_diagnostic.CA1707.severity = none
+
+# HttpClient string overloads are fine in tests.
+dotnet_diagnostic.CA2234.severity = none
+
+# StyleCop does not support C# 12 collection expressions.
+dotnet_diagnostic.SA1010.severity = none
