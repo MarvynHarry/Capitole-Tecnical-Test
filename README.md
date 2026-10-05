@@ -1,3 +1,20 @@
+# Prueba técnica .NET: microservicio de renting (GT Motive / Capitole)
+
+> Documentación completa de la solución: **[docs/SOLUCION.md](docs/SOLUCION.md)**
+
+```bash
+# Ejecutar en local (sin dependencias, persistencia en memoria) -> http://localhost:5080/swagger
+dotnet run --project src/GtMotive.Estimate.Microservice.Host --launch-profile http
+
+# Ejecutar con Docker (API + MongoDB) -> http://localhost:5080/swagger
+docker compose -f src/docker-compose.yml up --build
+
+# Tests (unitarios, funcionales e infraestructura)
+dotnet test src/microservice.sln
+```
+
+---
+
 # Sample Implementation of Hexagonal Architecture in a Microservice
 ## Index
 ### [Introduction](#introduction)
