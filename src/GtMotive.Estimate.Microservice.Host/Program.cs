@@ -65,7 +65,15 @@ builder.Services.Configure<MongoDbSettings>(builder.Configuration.GetSection("Mo
 builder.Services.AddControllers(ApiConfiguration.ConfigureControllers)
     .WithApiControllers();
 
-builder.Services.AddBaseInfrastructure(builder.Environment.IsDevelopment());
+var infrastructure = builder.Services.AddBaseInfrastructure(builder.Environment.IsDevelopment());
+
+// Persistence: MongoDB when a connection string is configured (e.g. docker-compose), in memory otherwise.
+var mongoConnectionString = builder.Configuration.GetValue<string>("MongoDb:ConnectionString");
+var useMongoDb = mongoConnectionString?.StartsWith("mongodb", StringComparison.OrdinalIgnoreCase) == true;
+if (useMongoDb)
+{
+    infrastructure.AddMongoDbPersistence();
+}
 
 builder.Services.Configure<ForwardedHeadersOptions>(options =>
 {
@@ -118,6 +126,8 @@ Log.Logger = builder.Environment.IsDevelopment() ?
             app.Services.GetRequiredService<TelemetryConfiguration>(), TelemetryConverter.Traces)
         .ReadFrom.Configuration(builder.Configuration)
         .CreateLogger();
+
+Log.Information("Vehicle persistence: {Persistence}", useMongoDb ? "MongoDB" : "InMemory");
 
 var pathBase = new PathBase(builder.Configuration.GetValue("PathBase", defaultValue: PathBase.DefaultPathBase));
 

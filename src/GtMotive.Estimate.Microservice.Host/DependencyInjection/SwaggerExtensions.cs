@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Reflection;
 using GtMotive.Estimate.Microservice.Host.Configuration;
 using GtMotive.Estimate.Microservice.Host.Infrastructure.Swagger;
@@ -26,6 +27,14 @@ namespace GtMotive.Estimate.Microservice.Host.DependencyInjection
                 options =>
                 {
                     options.CustomSchemaIds(type => type.ToString());
+
+                    // Controllers and view models documentation (/// comments) shown in Swagger UI.
+                    var apiXmlDocumentation = Path.Combine(AppContext.BaseDirectory, $"{typeof(Api.ApiConfiguration).Assembly.GetName().Name}.xml");
+                    if (File.Exists(apiXmlDocumentation))
+                    {
+                        options.IncludeXmlComments(apiXmlDocumentation);
+                    }
+
                     options.SwaggerDoc($"v{AssemblyVersion}", new OpenApiInfo
                     {
                         Title = $"{AssemblyName} API",

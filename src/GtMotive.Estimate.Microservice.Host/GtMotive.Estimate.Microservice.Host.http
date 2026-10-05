@@ -1,0 +1,40 @@
+# Peticiones de ejemplo (Visual Studio / Rider / VS Code REST Client).
+# Arranca la API (perfil "http" o docker compose) y ejecuta las peticiones en orden.
+@host = http://localhost:5080
+@vehicleId = REEMPLAZAR-POR-EL-ID-DEVUELTO-AL-CREAR
+
+### 1. Crear un vehículo (201 Created)
+POST {{host}}/api/vehicles
+Content-Type: application/json
+
+{
+  "brand": "Seat",
+  "model": "Ibiza",
+  "licensePlate": "1234-ABC",
+  "manufactureDate": "2023-03-15"
+}
+
+### 2. Crear un vehículo con más de 5 años (400 Bad Request)
+POST {{host}}/api/vehicles
+Content-Type: application/json
+
+{
+  "brand": "Ford",
+  "model": "Focus",
+  "licensePlate": "9999-XYZ",
+  "manufactureDate": "2015-01-01"
+}
+
+### 3. Listar vehículos disponibles (200 OK)
+GET {{host}}/api/vehicles/available
+
+### 4. Alquilar un vehículo (200 OK; 409 si ya está alquilado o la persona ya tiene otro)
+POST {{host}}/api/vehicles/{{vehicleId}}/rent
+Content-Type: application/json
+
+{
+  "renterId": "12345678Z"
+}
+
+### 5. Devolver un vehículo (200 OK; 409 si no está alquilado; 404 si no existe)
+POST {{host}}/api/vehicles/{{vehicleId}}/return
