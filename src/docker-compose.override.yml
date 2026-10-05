@@ -1,0 +1,5 @@
+# Visual Studio merges this file with docker-compose.yml when "docker-compose" is the startup project.
+services:
+  gtmotive.estimate.microservice.host:
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development

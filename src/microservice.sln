@@ -36,12 +36,16 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GtMotive.Estimate.Microserv
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GtMotive.Estimate.Microservice.Host", "GtMotive.Estimate.Microservice.Host\GtMotive.Estimate.Microservice.Host.csproj", "{9F5951E0-9865-4EE9-A32A-DC545BF21C95}"
 EndProject
+Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{8A3C5B7E-6F2D-4E1A-9B0C-1D2E3F4A5B6C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{8A3C5B7E-6F2D-4E1A-9B0C-1D2E3F4A5B6C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8A3C5B7E-6F2D-4E1A-9B0C-1D2E3F4A5B6C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D081347D-DEAE-46E4-8620-119573B560FB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{D081347D-DEAE-46E4-8620-119573B560FB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D081347D-DEAE-46E4-8620-119573B560FB}.Release|Any CPU.ActiveCfg = Release|Any CPU

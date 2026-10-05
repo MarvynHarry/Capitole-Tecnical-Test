@@ -1,0 +1,36 @@
+# Full environment: the microservice + MongoDB. From the repository root:
+#   docker compose -f src/docker-compose.yml up --build
+# Swagger: http://localhost:5080/swagger
+name: gtmotive-fleet
+
+services:
+  gtmotive.estimate.microservice.host:
+    image: ${DOCKER_REGISTRY-}gtmotive-estimate-microservice-host
+    build:
+      context: ..
+      dockerfile: src/GtMotive.Estimate.Microservice.Host/Dockerfile
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_HTTP_PORTS=8080
+      - MongoDb__ConnectionString=mongodb://mongo:27017
+      - MongoDb__MongoDbDatabaseName=fleet
+    ports:
+      - "5080:8080"
+    depends_on:
+      mongo:
+        condition: service_healthy
+
+  mongo:
+    image: mongo:7.0
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo-data:/data/db
+    healthcheck:
+      test: ["CMD", "mongosh", "--quiet", "--eval", "db.adminCommand('ping').ok"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+volumes:
+  mongo-data:
